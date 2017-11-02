@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $(document).ready(function() {
   var scoreP1 = 0;
   var scoreP2 = 0;
@@ -8,7 +10,7 @@ $(document).ready(function() {
   var modeAI = false;
   var result = '';
   var depth = 0;
-  
+
   $('#score1').text(scoreP1);
   $('#score2').text(scoreP2);
   // Configure the game
@@ -16,69 +18,67 @@ $(document).ready(function() {
   // Making moves
   $('.gameBoard td').on('click', function() {
     $(this).removeClass('tdHover'); //remove hover effect
-    
-      if (isActive) {
-        // Two Players
-        if (!modeAI) {
-          if (!$(this).hasClass('marked')) {
-            $(this).addClass('marked');
-            if (isP1Turn) {
-              $(this).text(symbolP1);
-              $(this).addClass('Player1')
-              checkWin('Player1');
-            } else {
-              $(this).text(symbolP2);
-              $(this).addClass('Player2')
-              checkWin('Player2');
-            }
-            if (isActive) {
-              isP1Turn = !isP1Turn;
-              if (isP1Turn) {
-                $('.turn2').toggleClass('visible');
-                setTimeout(function() {
-                  $('.turn1').toggleClass('visible');
-                }, 300);
-              } else {
-                $('.turn1').toggleClass('visible');
-                setTimeout(function() {
-                  $('.turn2').toggleClass('visible');
-                }, 300);
-              }
-            }
-          }
-        } else {
-          // AI mode
-          if (!$(this).hasClass('marked')) {
-            $(this).addClass('marked Player1');
+
+    if (isActive) {
+      // Two Players
+      if (!modeAI) {
+        if (!$(this).hasClass('marked')) {
+          $(this).addClass('marked');
+          if (isP1Turn) {
             $(this).text(symbolP1);
+            $(this).addClass('Player1');
             checkWin('Player1');
-            if (isActive) {
+          } else {
+            $(this).text(symbolP2);
+            $(this).addClass('Player2');
+            checkWin('Player2');
+          }
+          if (isActive) {
+            isP1Turn = !isP1Turn;
+            if (isP1Turn) {
+              $('.turn2').toggleClass('visible');
+              setTimeout(function() {
+                $('.turn1').toggleClass('visible');
+              }, 300);
+            } else {
               $('.turn1').toggleClass('visible');
               setTimeout(function() {
                 $('.turn2').toggleClass('visible');
               }, 300);
-              isActive = false;     
-              var step = 1+ bestMove(currentBoard());
-              $('#' + step).addClass('marked Computer');
-              $('#' + step).text(symbolP2);
-              isActive = true;
-              checkWin('Computer');
-              if (isActive) {
-                isP1Turn = true;  
-                $('.turn2').toggleClass('visible');
-                setTimeout(function() {
-                  $('.turn1').toggleClass('visible');
-                }, 500);
-              }
             }
-            // console.log(currentBoard());
           }
         }
-     }     
+      } else {
+        // AI mode
+        if (!$(this).hasClass('marked')) {
+          $(this).addClass('marked Player1');
+          $(this).text(symbolP1);
+          checkWin('Player1');
+          if (isActive) {
+            $('.turn1').toggleClass('visible');
+            setTimeout(function() {
+              $('.turn2').toggleClass('visible');
+            }, 300);
+            isActive = false;
+            var step = 1 + bestMove(currentBoard());
+            $('#' + step).addClass('marked Computer');
+            $('#' + step).text(symbolP2);
+            isActive = true;
+            checkWin('Computer');
+            if (isActive) {
+              isP1Turn = true;
+              $('.turn2').toggleClass('visible');
+              setTimeout(function() {
+                $('.turn1').toggleClass('visible');
+              }, 500);
+            }
+          }
+          // console.log(currentBoard());
+        }
+      }
+    }
   });
-  
 
-  
   // AI strategy to find the best Move
   function bestMove(board) {
     var bestMove = null;
@@ -96,13 +96,13 @@ $(document).ready(function() {
     }
     return bestMove;
   }
-  
-  // implementing Minmax (with Alpha–beta pruning) algorithm 
+
+  // implementing Minmax (with Alpha–beta pruning) algorithm
   function minMax(board, isMax, alpha, beta, step) {
     if (evaluation(board, step) !== null) {
       return evaluation(board, step);
     }
-    
+
     if (isMax) {
       for (var i = 0; i < 9; i++) {
         if (board[i] == 0) {
@@ -127,24 +127,24 @@ $(document).ready(function() {
       return beta;
     }
   }
-  
+
   // Helper method to create an array representation of the board
   function currentBoard() {
     var board = [];
     // +1 for AI, -1 for user, 0 for unmarked unit
     $('.gameBoard td').each(function() {
-      if(!$(this).hasClass('marked')) {
-        board[($(this).attr('id')) - 1] = 0;
+      if (!$(this).hasClass('marked')) {
+        board[$(this).attr('id') - 1] = 0;
       } else if ($(this).hasClass('Computer')) {
-        board[($(this).attr('id')) - 1] = 1;
+        board[$(this).attr('id') - 1] = 1;
       } else {
-        board[($(this).attr('id')) - 1] = -1;
+        board[$(this).attr('id') - 1] = -1;
       }
     });
     return board;
   }
-  
-  // Helper method for AI to evaluate step, return null if it is not game over state. 
+
+  // Helper method for AI to evaluate step, return null if it is not game over state.
   function evaluation(board, step) {
     //check for column
     for (var i = 0; i < 3; i++) {
@@ -156,7 +156,7 @@ $(document).ready(function() {
       }
     }
     // Check for row
-    for (var i = 0; i <= 6; i+=3) {
+    for (var i = 0; i <= 6; i += 3) {
       var sumRow = board[i] + board[i + 1] + board[i + 2];
       if (sumRow == 3) {
         return 10 - step;
@@ -175,16 +175,16 @@ $(document).ready(function() {
     // If the game is still going
     if (board.includes(0)) {
       return null;
-    } 
+    }
     //draw
     return 0;
   }
-  
-  // Hover effect on td 
+
+  // Hover effect on td
   $('.gameBoard td').on('mouseenter', function() {
     if (isActive && !$(this).hasClass('marked')) {
       $(this).addClass('tdHover');
-      if(isP1Turn) {
+      if (isP1Turn) {
         $(this).text(symbolP1);
       } else {
         $(this).text(symbolP2);
@@ -198,42 +198,41 @@ $(document).ready(function() {
     }
   });
 
-  
   // function to check if the game is over
   function checkWin(player) {
     var candidate = ['r1', 'r2', 'r3', 'c1', 'c2', 'c3', 'd1', 'd2'];
     for (var i = 0; i < candidate.length; i++) {
       var currentClass = candidate[i];
       var count = 0;
-      $('.'+currentClass).each(function() {
+      $('.' + currentClass).each(function() {
         if ($(this).hasClass(player)) {
-          count ++;
+          count++;
         }
       });
       // If player win
       if (count == 3) {
-        $('.'+currentClass).each(function() {
+        $('.' + currentClass).each(function() {
           $(this).addClass('win');
         });
         isActive = false;
         if (player == 'Player1') {
-          scoreP1 ++;
+          scoreP1++;
           $('.s1Add').toggleClass('visible');
-          setTimeout(function () {
+          setTimeout(function() {
             $('.s1Add').toggleClass('visible');
           }, 1000);
 
           $('#score1').text(scoreP1);
         } else {
-          scoreP2 ++;
+          scoreP2++;
           $('.s2Add').toggleClass('visible');
-          setTimeout(function () {
+          setTimeout(function() {
             $('.s2Add').toggleClass('visible');
           }, 1000);
           $('#score2').text(scoreP2);
         }
         result = player + ' Win!';
-        setTimeout(function () {
+        setTimeout(function() {
           afterSet();
         }, 1000);
       }
@@ -243,13 +242,13 @@ $(document).ready(function() {
       if ($('.marked').length == 9) {
         isActive = false;
         result = 'Draw!';
-        setTimeout(function () {
+        setTimeout(function() {
           afterSet();
         }, 1000);
-      } 
+      }
     }
   }
-  
+
   // After a set, show the result and ask if the player want to continue
   function afterSet() {
     $('.gameBoard').fadeOut('slow', function() {
@@ -274,12 +273,12 @@ $(document).ready(function() {
       });
     });
   }
-  
+
   // function to start a new game
   function start() {
     $('.gameBoard td').each(function() {
       $(this).text('');
-      $(this).removeClass('win Player1 Player2 marked tdHover Computer')
+      $(this).removeClass('win Player1 Player2 marked tdHover Computer');
     });
     if (symbolP1 == 'X') {
       isP1Turn = true;
@@ -296,18 +295,18 @@ $(document).ready(function() {
     if (!isP1Turn && modeAI) {
       isActive = false;
       // random first step
-      var step = Math.floor(Math.random()*9) + 1;
+      var step = Math.floor(Math.random() * 9) + 1;
       $('#' + step).addClass('marked Computer');
       $('#' + step).text(symbolP2);
       isActive = true;
-      isP1Turn = true;  
+      isP1Turn = true;
       $('.turn2').toggleClass('visible');
       setTimeout(function() {
         $('.turn1').addClass('visible');
       }, 300);
     }
   }
-  
+
   // Configure the game from use input
   function config() {
     scoreP1 = 0;
@@ -328,7 +327,7 @@ $(document).ready(function() {
       });
     });
   }
-  
+
   // Helper method for config
   function configHelp() {
     $('.config').fadeOut('slow', function() {
@@ -350,5 +349,4 @@ $(document).ready(function() {
       });
     });
   }
-                       
 });
