@@ -1,0 +1,91 @@
+.container {
+  margin-top: 10%;
+}
+/* h1 {
+  text-align: center;
+  font-size: 60px;
+  margin-bottom: 20px;
+} */
+
+.gameBoard {
+  margin: 40px auto;
+  border-collapse: collapse;
+  display: none;
+}
+
+.gameBoard td {
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  font-size: 60px;
+/*   transition: 0.2s linear; */
+}
+
+.gameBoard tr:nth-of-type(2) {
+  border-top: 2px solid grey;
+  border-bottom: 2px solid grey;
+}
+
+.gameBoard tr td:nth-of-type(2) {
+  border-left: 2px solid grey;
+  border-right: 2px solid grey;
+}
+
+.scoreBoard {
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+  font-size: 30px;
+  display: none;
+}
+
+#nameP1, #nameP2 {
+  border-bottom: 2px solid black;
+}
+#nameP2, #score2 {
+  border-left: 2px solid black;
+}
+.win {
+  color: red;
+  animation: beat 0.3s infinite alternate;
+  transform-origin: center;
+}
+@keyframes beat{
+  to {transform: scale(1.8);}
+}
+.config, .XO, .continue, .whoWin{
+  margin: 10px auto;
+  width: 500px;
+  text-align: center;
+  font-size: 40px;
+  padding-top: 80px;
+/*   border: 2px dashed grey; */
+  display: none;
+}
+button {
+  font-size: 30px !important;
+  margin: 0 20px;
+  border-radius: 15px;
+  background-color: white;
+  border: none;
+}
+button:hover {
+  border: 2px dashed grey;
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+}
+.turn1, .turn2, .s1Add, .s2Add {
+  visibility: hidden;
+  transition: 0.2s linear;
+}
+.visible {
+  visibility: visible !important;
+}
+.tdHover {
+  color: rgba(192, 192, 192, 0.6);
+}
+
+
+
