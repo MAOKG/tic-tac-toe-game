@@ -1,63 +1,83 @@
 <!DOCTYPE html>
 <html >
 <head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-109042105-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-109042105-1');
+</script>
   <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title>Tic Tac Toe Game</title>
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
   <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css'>
 </head>
 
 <body>
-  <div class='container'>
-<!--   <h1>Tic Tac Toe</h1> -->
-  <table class='scoreBoard'>
-    <tr>
-      <th class='turn1'><i class="fa fa-arrow-right" aria-hidden="true"></i></th>
-      <th id='nameP1'>Player1</th>
-      <th id='nameP2'>Player2</th>
-      <th class='turn2'><i class="fa fa-arrow-left" aria-hidden="true"></i></th>
-    </tr>
-    <tr>
-      <td class='s1Add'>+1</td>
-      <td id='score1'>0</td>
-      <td id='score2'>0</td>
-      <td class='s2Add'>+1</td>
-    </tr>
-  </table>
-  <table class='gameBoard'>
-    <tr>
-      <td class='r1 c1 d1' id='1'></td>
-      <td class='r1 c2' id='2'></td>
-      <td class='r1 c3 d2' id='3'></td>
-    </tr>
-    <tr>
-      <td class='r2 c1' id='4'></td>
-      <td class='r2 c2 d1 d2' id='5'></td>
-      <td class='r2 c3' id='6'></td>
-    </tr>
-    <tr>
-      <td class='r3 c1 d2' id='7'></td>
-      <td class='r3 c2' id='8'></td>
-      <td class='r3 c3 d1' id='9'></td>
-    </tr>
-  </table>
-  <div class='config'>
-    <p>How do you want to play?</p>
-    <button id='single'>Single Player</button>
-    <button id='double'>Two Players</button>
+  <div class='home-wrap'>
+    <div class='site-content'>
+      <div class='container'>
+    <!--   <h1>Tic Tac Toe</h1> -->
+
+      <table class='scoreBoard'>
+        <tr>
+          <th class='turn1'><i class="fa fa-arrow-right" aria-hidden="true"></i></th>
+          <th id='nameP1'>Player1</th>
+          <th id='nameP2'>Player2</th>
+          <th class='turn2'><i class="fa fa-arrow-left" aria-hidden="true"></i></th>
+        </tr>
+        <tr>
+          <td class='s1Add'>+1</td>
+          <td id='score1'>0</td>
+          <td id='score2'>0</td>
+          <td class='s2Add'>+1</td>
+        </tr>
+      </table>
+      <table class='gameBoard'>
+        <tr>
+          <td class='r1 c1 d1' id='1'></td>
+          <td class='r1 c2' id='2'></td>
+          <td class='r1 c3 d2' id='3'></td>
+        </tr>
+        <tr>
+          <td class='r2 c1' id='4'></td>
+          <td class='r2 c2 d1 d2' id='5'></td>
+          <td class='r2 c3' id='6'></td>
+        </tr>
+        <tr>
+          <td class='r3 c1 d2' id='7'></td>
+          <td class='r3 c2' id='8'></td>
+          <td class='r3 c3 d1' id='9'></td>
+        </tr>
+      </table>
+      <div class='config'>
+        <p>How do you want to play?</p>
+        <button id='single'>Single Player</button>
+        <button id='double'>Two Players</button>
+      </div>
+      <div class='XO'>
+        <p>Would you like to be X or O?</p>
+        <button id='X'>X</button>
+        <button id='O'>O</button>
+      </div>
+      <div class='whoWin'>
+        <p>Player1 win!</p>
+      </div>
+      <div class='continue'>
+        <p>Do you want to continue?</p>
+        <button id='resume'>Yes</button>
+        <button id='restart'>No, restart the game</button>
+      </div>
+    </div>
   </div>
-  <div class='XO'>
-    <p>Would you like to be X or O?</p>
-    <button id='X'>X</button>
-    <button id='O'>O</button>
-  </div>
-  <div class='whoWin'>
-    <p>Player1 win!</p>
-  </div>
-  <div class='continue'>
-    <p>Do you want to continue?</p>
-    <button id='resume'>Yes</button>
-    <button id='restart'>No, restart the game</button>
+
+  <div class='site-footer'>
+    <footer>Made with &#9829 by <a href="https://www.maosen-chen.me" target='_blank'>Maosen Chen</a> | <a href="https://github.com/MAOKG/tic-tac-toe-game" target='_blank'>Github Respository</a></footer>
   </div>
 </div>
 
